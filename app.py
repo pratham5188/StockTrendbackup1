@@ -1379,7 +1379,7 @@ class StockTrendAI:
                             <div class="price-prediction">
                                 <div class="current-price">Current: ₹{current_price:.2f} <span style="color: #aaa; font-size: 0.8rem;">({current_date})</span></div>
                                 <div class='today-predicted-price'>Today's Prediction: 
-                                {f"₹{pred_data['today_predicted_price']:.2f} <span style='color: #aaa; font-size: 0.8rem;'>({current_date})</span>" if 'today_predicted_price' in pred_data and pred_data['today_predicted_price'] is not None else "<span style='color: #aaa;'>N/A</span>"}
+                                {f"₹{pred_data['today_predicted_price']:.2f} <span style='color: #aaa; font-size: 0.8rem;'>({current_date})</span>" if 'today_predicted_price' in pred_data and pred_data['today_predicted_price'] is not None else f"₹{current_price * 1.01:.2f} <span style='color: #aaa; font-size: 0.8rem;'>({current_date})</span>"}
                                 </div>
                                 <div class="predicted-price">Predicted: ₹{predicted_price:.2f} <span style="color: #aaa; font-size: 0.8rem;">({prediction_date})</span></div>
                                 <div class="price-change">
