@@ -27,6 +27,8 @@ class ProphetPredictor:
         idx = pd.Series(idx)
         if hasattr(idx.dt, 'tz') and idx.dt.tz is not None:
             idx = idx.dt.tz_localize(None)
+        else:
+            idx = idx.dt.tz_localize(None, ambiguous='NaT', nonexistent='NaT')
         prophet_data['ds'] = idx.values
         prophet_data['y'] = data['Close'].values
         
@@ -135,8 +137,10 @@ class ProphetPredictor:
             
             # Create future dataframe for 1 day
             last_date = data.index[-1]
+            # Ensure last_date is timezone-naive
+            if hasattr(last_date, 'tzinfo') and last_date.tzinfo is not None:
+                last_date = last_date.tz_localize(None)
             next_date = last_date + timedelta(days=1)
-            
             future = pd.DataFrame({'ds': [next_date]})
             
             # Add regressor values for prediction (use last known values)
