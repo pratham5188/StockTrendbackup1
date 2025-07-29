@@ -1,10 +1,12 @@
 #!/bin/bash
 
+export PATH="$HOME/.local/bin:$PATH"
+
 echo "Starting StockTrendAI Application..."
 echo "=================================="
 
 # Set up environment
-source $HOME/.local/bin/env
+# source $HOME/.local/bin/env
 
 # Run the Streamlit app
 echo "Starting Streamlit server..."
