@@ -1293,6 +1293,7 @@ class StockTrendAI:
                     current_date = datetime.now().strftime("%d %b %Y")
                     prediction_date = (datetime.now() + timedelta(days=1)).strftime("%d %b %Y")
                     
+                    today_predicted_price = pred_data.get('today_predicted_price', None)
                     with cols[j]:
                         st.markdown(f"""
                         <div class="prediction-card {color_class}" style="min-width: 320px; max-width: 340px; margin-bottom: 16px;">
@@ -1306,6 +1307,7 @@ class StockTrendAI:
                             </div>
                             <div class="price-prediction">
                                 <div class="current-price">Current: ₹{current_price:.2f} <span style="color: #aaa; font-size: 0.8rem;">({current_date})</span></div>
+                                {f'<div class=\"today-predicted-price\">Today\'s Prediction: ₹{today_predicted_price:.2f} <span style=\"color: #aaa; font-size: 0.8rem;\">({current_date})</span></div>' if today_predicted_price is not None else ''}
                                 <div class="predicted-price">Predicted: ₹{predicted_price:.2f} <span style="color: #aaa; font-size: 0.8rem;">({prediction_date})</span></div>
                                 <div class="price-change">
                                     Change: {price_change:+.2f} ({change_percent:+.2f}%)
