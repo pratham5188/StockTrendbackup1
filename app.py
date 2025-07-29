@@ -8,6 +8,7 @@ import time
 from datetime import datetime, timedelta
 import warnings
 import concurrent.futures
+import textwrap
 warnings.filterwarnings('ignore')
 
 # Import custom modules
@@ -1295,7 +1296,7 @@ class StockTrendAI:
                     
                     today_predicted_price = pred_data.get('today_predicted_price', None)
                     with cols[j]:
-                        st.markdown(f"""
+                        st.markdown(textwrap.dedent(f"""
                         <div class="prediction-card {color_class}" style="min-width: 320px; max-width: 340px; margin-bottom: 16px;">
                             <div class="model-name">{icon} {model_name}</div>
                             <div class="prediction-direction">{arrow} {direction}</div>
@@ -1314,7 +1315,7 @@ class StockTrendAI:
                                 </div>
                             </div>
                         </div>
-                        """, unsafe_allow_html=True)
+                        """), unsafe_allow_html=True)
     
     def get_confidence_indicator(self, confidence):
         """Get confidence indicator icon and text"""
