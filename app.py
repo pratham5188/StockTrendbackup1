@@ -609,6 +609,10 @@ class StockTrendAI:
                 with st.spinner("🤖 Running XGBoost prediction..."):
                     try:
                         xgb_pred = self.xgb_predictor.predict(stock_data)
+                        if 'predicted_price' in xgb_pred:
+                            current_price = stock_data['Close'].iloc[-1]
+                            tomorrow_price = xgb_pred['predicted_price']
+                            xgb_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['XGBoost'] = xgb_pred
                     except Exception as e:
                         st.warning(f"XGBoost prediction failed: {str(e)}")
@@ -617,6 +621,10 @@ class StockTrendAI:
                 with st.spinner("🧠 Running LSTM prediction..."):
                     try:
                         lstm_pred = self.lstm_predictor.predict(stock_data)
+                        if 'predicted_price' in lstm_pred:
+                            current_price = stock_data['Close'].iloc[-1]
+                            tomorrow_price = lstm_pred['predicted_price']
+                            lstm_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['LSTM'] = lstm_pred
                     except Exception as e:
                         st.warning(f"LSTM prediction failed: {str(e)}")
@@ -625,6 +633,10 @@ class StockTrendAI:
                 with st.spinner("📈 Running Prophet prediction..."):
                     try:
                         prophet_pred = self.prophet_predictor.predict(stock_data)
+                        if 'predicted_price' in prophet_pred:
+                            current_price = stock_data['Close'].iloc[-1]
+                            tomorrow_price = prophet_pred['predicted_price']
+                            prophet_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['Prophet'] = prophet_pred
                     except Exception as e:
                         st.warning(f"Prophet prediction failed: {str(e)}")
@@ -633,6 +645,10 @@ class StockTrendAI:
                 with st.spinner("🎯 Running Ensemble prediction..."):
                     try:
                         ensemble_pred = self.ensemble_predictor.predict(stock_data)
+                        if 'predicted_price' in ensemble_pred:
+                            current_price = stock_data['Close'].iloc[-1]
+                            tomorrow_price = ensemble_pred['predicted_price']
+                            ensemble_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['Ensemble'] = ensemble_pred
                     except Exception as e:
                         st.warning(f"Ensemble prediction failed: {str(e)}")
@@ -641,6 +657,10 @@ class StockTrendAI:
                 with st.spinner("⚡ Running Transformer prediction..."):
                     try:
                         transformer_pred = self.transformer_predictor.predict(stock_data)
+                        if 'predicted_price' in transformer_pred:
+                            current_price = stock_data['Close'].iloc[-1]
+                            tomorrow_price = transformer_pred['predicted_price']
+                            transformer_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['Transformer'] = transformer_pred
                     except Exception as e:
                         st.warning(f"Transformer prediction failed: {str(e)}")
@@ -649,6 +669,10 @@ class StockTrendAI:
                 with st.spinner("🔥 Running GRU prediction..."):
                     try:
                         gru_pred = self.gru_predictor.predict(stock_data)
+                        if 'predicted_price' in gru_pred:
+                            current_price = stock_data['Close'].iloc[-1]
+                            tomorrow_price = gru_pred['predicted_price']
+                            gru_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['GRU'] = gru_pred
                     except Exception as e:
                         st.warning(f"GRU prediction failed: {str(e)}")
@@ -657,6 +681,10 @@ class StockTrendAI:
                 with st.spinner("🏆 Running Stacking Ensemble prediction..."):
                     try:
                         stacking_pred = self.stacking_predictor.predict(stock_data)
+                        if 'predicted_price' in stacking_pred:
+                            current_price = stock_data['Close'].iloc[-1]
+                            tomorrow_price = stacking_pred['predicted_price']
+                            stacking_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['Stacking'] = stacking_pred
                     except Exception as e:
                         st.warning(f"Stacking Ensemble prediction failed: {str(e)}")
