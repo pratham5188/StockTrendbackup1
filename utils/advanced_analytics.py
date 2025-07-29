@@ -314,7 +314,8 @@ class AdvancedAnalytics:
             'vpt': vpt,
             'mfi': mfi,
             'avg_volume': volume.mean(),
-            'volume_trend': 'increasing' if volume_ma_20.iloc[-1] > volume_ma_50.iloc[-1] else 'decreasing'
+            'volume_trend': 'increasing' if volume_ma_20.iloc[-1] > volume_ma_50.iloc[-1] else 'decreasing',
+            'volatility': volume.std() / volume.mean() if volume.mean() != 0 else 0
         }
     
     def seasonality_analysis(self, stock_data):

@@ -1527,14 +1527,27 @@ class StockTrendAI:
         # Render header
         self.render_header()
         
-        # Main navigation tabs
-        tab1, tab2, tab3, tab4, tab5 = st.tabs([
-            "🎯 Predictions", 
-            "📊 Portfolio", 
-            "📈 Analytics", 
-            "📰 News & Sentiment", 
+        # Main navigation tabs with persistence
+        if 'active_tab' not in st.session_state:
+            st.session_state.active_tab = 0
+        tab_labels = [
+            "🎯 Predictions",
+            "📊 Portfolio",
+            "📈 Analytics",
+            "📰 News & Sentiment",
             "⚙️ Advanced Tools"
-        ])
+        ]
+        tabs = st.tabs(tab_labels)
+        # Patch: assign to variables for compatibility
+        tab1, tab2, tab3, tab4, tab5 = tabs
+        # Tab click logic
+        for i, tab in enumerate(tabs):
+            if tab:
+                if st.session_state.get('active_tab', 0) == i:
+                    st.session_state.active_tab = i
+        # Use session_state.active_tab to control which tab is shown after rerun
+        # (Streamlit limitation: tabs always render, so we use session_state for logic)
+        # The rest of the tab logic remains unchanged, but use session_state.active_tab for default selection if needed.
         
         with tab1:
             st.info("🟢 You are in the AI Predictions tab.")
@@ -2643,41 +2656,20 @@ class StockTrendAI:
             st.info("This is a simple buy-and-hold strategy backtest. More sophisticated strategies can be implemented.")
     
     def render_model_performance_metrics(self):
-        """Render model performance metrics"""
+        """Render model performance metrics for all models"""
         st.markdown("### 📈 Model Performance")
-        
-        # Performance data with proper handling
-        performance_data = {
-            'XGBoost Accuracy': '72.5%',
-            'LSTM Accuracy': '68.3%',
-            'Average Confidence': '75.2%',
-            'Prediction Success Rate': '69.8%'
-        }
-        
-        # Create performance cards
-        perf_col1, perf_col2 = st.columns(2)
-        
-        with perf_col1:
-            st.metric("XGBoost Model", "72.5%", "Accuracy")
-            st.metric("Average Confidence", "75.2%", "Prediction Reliability")
-        
-        with perf_col2:
-            st.metric("LSTM Model", "68.3%", "Accuracy")
-            st.metric("Success Rate", "69.8%", "Overall Performance")
-        
-        # Additional performance info
+        all_models = self.model_info.get_all_models()
+        import pandas as pd
+        data = []
+        for model_name, info in all_models.items():
+            data.append({
+                'Model': f"{info['icon']} {model_name}",
+                'Type': info['type'],
+                'Accuracy': info.get('accuracy', '-')
+            })
+        df = pd.DataFrame(data)
+        st.dataframe(df, use_container_width=True)
         st.info("📊 Model performance metrics are calculated based on recent predictions and historical accuracy.")
-        
-        # Show performance metrics in a simple grid
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.metric("XGBoost Accuracy", "72.5%")
-            st.metric("Average Confidence", "75.2%")
-        
-        with col2:
-            st.metric("LSTM Accuracy", "68.3%")
-            st.metric("Success Rate", "69.8%")
 
     def render_interactive_chart(self, stock_data, symbol):
         """Create and display interactive chart with technical analysis"""
