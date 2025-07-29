@@ -11,7 +11,7 @@ import concurrent.futures
 warnings.filterwarnings('ignore')
 
 # Import custom modules
-from utils.data_fetcher import DataFetcher
+from utils.data_fetcher import DataFetcher, load_company_list
 from utils.technical_indicators import TechnicalIndicators
 from models.xgboost_model import XGBoostPredictor
 from models.lstm_model import LSTMPredictor
@@ -1772,7 +1772,7 @@ class StockTrendAI:
                     
                     with st.form("add_holding_form"):
                         symbol = st.selectbox(
-                            "Select Stock", 
+                            "Select Stock",
                             options=list(INDIAN_STOCKS.keys()),
                             format_func=lambda x: f"{INDIAN_STOCKS[x]} ({x})"
                         )

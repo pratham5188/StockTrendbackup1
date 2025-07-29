@@ -22,7 +22,10 @@ class ProphetPredictor:
     def prepare_prophet_data(self, data):
         """Prepare data in Prophet format (ds, y)"""
         prophet_data = pd.DataFrame()
-        prophet_data['ds'] = pd.to_datetime(data.index).tz_localize(None)  # Remove timezone
+        idx = pd.to_datetime(data.index)
+        if hasattr(idx, 'tz') and idx.tz is not None:
+            idx = idx.tz_localize(None)
+        prophet_data['ds'] = idx
         prophet_data['y'] = data['Close'].values
         
         # Add additional regressors

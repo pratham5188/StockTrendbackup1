@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import time
+import csv
+import os
 
 class DataFetcher:
     """Data fetcher for Indian stock market data using yFinance"""
@@ -390,3 +392,17 @@ class DataFetcher:
                 })
         
         return results
+
+def load_company_list():
+    csv_path = os.path.join(os.path.dirname(__file__), '../attached_assets/companies.csv')
+    companies = {}
+    try:
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if len(row) == 2:
+                    symbol, name = row
+                    companies[symbol.strip()] = name.strip()
+    except Exception as e:
+        print(f"Error loading company list: {e}")
+    return companies
