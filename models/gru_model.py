@@ -183,6 +183,7 @@ class GRUPredictor:
                 'direction': direction,
                 'confidence': confidence,
                 'predicted_price': float(predicted_price),
+                'today_predicted_price': float(current_price + (predicted_price - current_price) * 0.5),
                 'reasoning': f'GRU deep learning analysis with {self.sequence_length}-day sequence'
             }
             
@@ -213,6 +214,7 @@ class GRUPredictor:
                 'direction': direction,
                 'confidence': confidence,
                 'predicted_price': current_price * (1.01 if direction == 'UP' else 0.99),
+                'today_predicted_price': current_price + ((current_price * (1.01 if direction == 'UP' else 0.99)) - current_price) * 0.5,
                 'reasoning': 'GRU fallback: Moving average analysis'
             }
             

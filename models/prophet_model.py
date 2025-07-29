@@ -116,6 +116,7 @@ class ProphetPredictor:
             'direction': direction,
             'confidence': confidence,
             'predicted_price': predicted_price,
+            'today_predicted_price': current_price + (predicted_price - current_price) * 0.5,
             'model_type': 'Prophet (Trend Fallback)'
         }
     
@@ -177,6 +178,7 @@ class ProphetPredictor:
                 'direction': direction,
                 'confidence': confidence,
                 'predicted_price': predicted_price,
+                'today_predicted_price': current_price + (predicted_price - current_price) * 0.5,
                 'model_type': 'Prophet (Time Series)',
                 'forecast_components': {
                     'trend': forecast.get('trend', [0]).iloc[0] if 'trend' in forecast.columns else 0,

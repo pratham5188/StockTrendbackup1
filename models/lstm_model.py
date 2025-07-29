@@ -177,6 +177,7 @@ class LSTMPredictor:
             'direction': direction,
             'confidence': confidence,
             'predicted_price': predicted_price,
+            'today_predicted_price': current_price + (predicted_price - current_price) * 0.5,
             'model_type': 'LSTM (Moving Average Fallback)'
         }
     
@@ -226,6 +227,7 @@ class LSTMPredictor:
                 'direction': direction,
                 'confidence': confidence,
                 'predicted_price': predicted_price,
+                'today_predicted_price': current_price + (predicted_price - current_price) * 0.5,
                 'model_type': 'LSTM (Deep Learning)'
             }
             

@@ -170,11 +170,13 @@ class XGBoostPredictor:
             else:  # Down
                 predicted_price = current_price * (1 - abs(price_change_mean))
                 direction = 'DOWN'
-            
+            # Unique today_predicted_price for demo: halfway to predicted_price
+            today_predicted_price = current_price + (predicted_price - current_price) * 0.5
             return {
                 'direction': direction,
                 'confidence': confidence,
                 'predicted_price': predicted_price,
+                'today_predicted_price': today_predicted_price,
                 'model_type': 'XGBoost (Random Forest)'
             }
             
@@ -186,5 +188,6 @@ class XGBoostPredictor:
                 'direction': 'UP' if data['Close'].iloc[-1] > data['Close'].iloc[-2] else 'DOWN',
                 'confidence': 50.0,
                 'predicted_price': current_price,
+                'today_predicted_price': current_price,
                 'model_type': 'XGBoost (Fallback)'
             }

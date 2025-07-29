@@ -278,6 +278,7 @@ class TransformerPredictor:
             'direction': direction,
             'confidence': confidence,
             'predicted_price': predicted_price,
+            'today_predicted_price': current_price + (predicted_price - current_price) * 0.5,
             'model_type': 'Transformer (Attention Fallback)',
             'attention_signal': combined_signal,
             'reasoning': f'Attention-based prediction using weighted trends (trend: {weighted_trend:.3f}, volume: {volume_trend:.3f})'
@@ -333,6 +334,7 @@ class TransformerPredictor:
                 'direction': direction,
                 'confidence': confidence,
                 'predicted_price': predicted_price,
+                'today_predicted_price': current_price + (predicted_price - current_price) * 0.5,
                 'model_type': 'Transformer (Attention)',
                 'price_change_pct': price_change_pct,
                 'model_layers': self.num_layers,

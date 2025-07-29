@@ -290,6 +290,7 @@ class StackingEnsemblePredictor:
                 'direction': direction,
                 'confidence': confidence,
                 'predicted_price': float(predicted_price),
+                'today_predicted_price': float(current_price + (predicted_price - current_price) * 0.5),
                 'reasoning': f'Stacking ensemble with {len(self.base_models)} base models',
                 'model_scores': self.cv_scores,
                 'base_predictions': [float(p) for p in base_predictions[0]]
@@ -339,6 +340,7 @@ class StackingEnsemblePredictor:
                 'direction': direction,
                 'confidence': 0.6,
                 'predicted_price': float(avg_prediction),
+                'today_predicted_price': float(current_price + (float(avg_prediction) - current_price) * 0.5),
                 'reasoning': 'Stacking fallback: Ensemble of simple methods'
             }
             
