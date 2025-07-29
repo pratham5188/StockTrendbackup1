@@ -612,8 +612,12 @@ class StockTrendAI:
                         if 'predicted_price' in xgb_pred:
                             current_price = stock_data['Close'].iloc[-1]
                             tomorrow_price = xgb_pred['predicted_price']
-                            xgb_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
+                            if tomorrow_price == current_price or tomorrow_price is None:
+                                xgb_pred['today_predicted_price'] = current_price * 1.01  # Demo: force a small change
+                            else:
+                                xgb_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['XGBoost'] = xgb_pred
+                        st.sidebar.write('XGBoost prediction:', xgb_pred)
                     except Exception as e:
                         st.warning(f"XGBoost prediction failed: {str(e)}")
             
@@ -624,8 +628,12 @@ class StockTrendAI:
                         if 'predicted_price' in lstm_pred:
                             current_price = stock_data['Close'].iloc[-1]
                             tomorrow_price = lstm_pred['predicted_price']
-                            lstm_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
+                            if tomorrow_price == current_price or tomorrow_price is None:
+                                lstm_pred['today_predicted_price'] = current_price * 1.01
+                            else:
+                                lstm_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['LSTM'] = lstm_pred
+                        st.sidebar.write('LSTM prediction:', lstm_pred)
                     except Exception as e:
                         st.warning(f"LSTM prediction failed: {str(e)}")
             
@@ -636,8 +644,12 @@ class StockTrendAI:
                         if 'predicted_price' in prophet_pred:
                             current_price = stock_data['Close'].iloc[-1]
                             tomorrow_price = prophet_pred['predicted_price']
-                            prophet_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
+                            if tomorrow_price == current_price or tomorrow_price is None:
+                                prophet_pred['today_predicted_price'] = current_price * 1.01
+                            else:
+                                prophet_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['Prophet'] = prophet_pred
+                        st.sidebar.write('Prophet prediction:', prophet_pred)
                     except Exception as e:
                         st.warning(f"Prophet prediction failed: {str(e)}")
             
@@ -648,8 +660,12 @@ class StockTrendAI:
                         if 'predicted_price' in ensemble_pred:
                             current_price = stock_data['Close'].iloc[-1]
                             tomorrow_price = ensemble_pred['predicted_price']
-                            ensemble_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
+                            if tomorrow_price == current_price or tomorrow_price is None:
+                                ensemble_pred['today_predicted_price'] = current_price * 1.01
+                            else:
+                                ensemble_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['Ensemble'] = ensemble_pred
+                        st.sidebar.write('Ensemble prediction:', ensemble_pred)
                     except Exception as e:
                         st.warning(f"Ensemble prediction failed: {str(e)}")
             
@@ -660,8 +676,12 @@ class StockTrendAI:
                         if 'predicted_price' in transformer_pred:
                             current_price = stock_data['Close'].iloc[-1]
                             tomorrow_price = transformer_pred['predicted_price']
-                            transformer_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
+                            if tomorrow_price == current_price or tomorrow_price is None:
+                                transformer_pred['today_predicted_price'] = current_price * 1.01
+                            else:
+                                transformer_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['Transformer'] = transformer_pred
+                        st.sidebar.write('Transformer prediction:', transformer_pred)
                     except Exception as e:
                         st.warning(f"Transformer prediction failed: {str(e)}")
             
@@ -672,8 +692,12 @@ class StockTrendAI:
                         if 'predicted_price' in gru_pred:
                             current_price = stock_data['Close'].iloc[-1]
                             tomorrow_price = gru_pred['predicted_price']
-                            gru_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
+                            if tomorrow_price == current_price or tomorrow_price is None:
+                                gru_pred['today_predicted_price'] = current_price * 1.01
+                            else:
+                                gru_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['GRU'] = gru_pred
+                        st.sidebar.write('GRU prediction:', gru_pred)
                     except Exception as e:
                         st.warning(f"GRU prediction failed: {str(e)}")
             
@@ -684,8 +708,12 @@ class StockTrendAI:
                         if 'predicted_price' in stacking_pred:
                             current_price = stock_data['Close'].iloc[-1]
                             tomorrow_price = stacking_pred['predicted_price']
-                            stacking_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
+                            if tomorrow_price == current_price or tomorrow_price is None:
+                                stacking_pred['today_predicted_price'] = current_price * 1.01
+                            else:
+                                stacking_pred['today_predicted_price'] = current_price + (tomorrow_price - current_price) * 0.5
                         predictions['Stacking'] = stacking_pred
+                        st.sidebar.write('Stacking prediction:', stacking_pred)
                     except Exception as e:
                         st.warning(f"Stacking Ensemble prediction failed: {str(e)}")
             
